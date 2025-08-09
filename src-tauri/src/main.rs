@@ -90,6 +90,13 @@ fn main() {
 
     tauri::Builder::default()
         .manage(AppState { webhook_url })
+        .setup(|app| {  
+        #[cfg(desktop)]
+        app.handle().plugin(
+        tauri_plugin_updater::Builder::new().build()
+        );
+        Ok(())
+  })
         .invoke_handler(tauri::generate_handler![
             get_champ,
             search_champions,
@@ -99,7 +106,6 @@ fn main() {
             send_bug_report
         ])
         .plugin(tauri_plugin_dialog::init())
-        .plugin(tauri_plugin_updater::Builder::new().build())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

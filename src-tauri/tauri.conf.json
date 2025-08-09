@@ -28,10 +28,12 @@
   },
   "bundle": {
     "active": true,
-    "targets": ["msi"],
+
     "icon": [
       "icons/appicon.ico"
-    ]
+    ],
+    "createUpdaterArtifacts": true,
+    "targets": ["msi"]
   },
     "plugins": {
   "updater": {
@@ -39,8 +41,11 @@
     "endpoints": [
       "https://github.com/Exafyll/Loldle_Infinite_Tauri/releases/latest/download/latest.json"
     ],
-    "pubkey": "PdW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMzRDY4NDlFRkFEREQ3NjgKUldSbzE5MzZub1RXdzROeTlOaGNzWXVhSXV5bGxpQlJnK251ZVlXeXRXYmM0R3NZTkZTaEpZa3cK",
-    "dialog": true
+    "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDQ5QzdBMjE1QkY2QjE2QwpSV1Jzc2ZaYklYcWNCQzNyL0RBdkF0ZGppbThyU3N2QXNnR1BZeDA5VERvUVpjNVd6Tk0zYm4zRAo=",
+    "dialog": true,
+          "windows": {
+        "installMode": "passive"
+      }
   }
 }
 }
