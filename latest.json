@@ -1,0 +1,11 @@
+{
+  "version": "0.1.1",
+  "notes": "Added auto updates.",
+  "pub_date": "2025-08-09T08:00:00Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "Exafyll",
+      "url": "https://github.com/Exafyll/Loldle_Infinite_Tauri/releases/download/v0.1.1/loldle-tauri_0.1.1_x64_en-US.msi"
+    }
+  }
+}

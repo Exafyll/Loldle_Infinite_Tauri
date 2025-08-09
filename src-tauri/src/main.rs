@@ -16,6 +16,7 @@ use dotenvy::dotenv;
 use std::env;
 use tauri::State;
 use serde_json::json;
+use tauri_plugin_dialog;
 
 struct AppState {
     webhook_url: String,
@@ -97,6 +98,8 @@ fn main() {
             all_champions_count,
             send_bug_report
         ])
+        .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

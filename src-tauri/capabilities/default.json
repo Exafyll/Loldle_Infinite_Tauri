@@ -22,15 +22,24 @@
   "os:allow-arch",
   "os:allow-version",
 
+  "updater:default",
+
   "http:allow-fetch",
   "http:allow-fetch-send",
   "http:allow-fetch-read-body",
   "http:default",
+
+      "dialog:default",
+    "dialog:allow-confirm",
+
+    "updater:allow-check",
+    "updater:allow-download-and-install",
     {
       "identifier": "http:default",
       "allow": [
         { "url": "https://discord.com/api/webhooks/**" },
-        { "url": "https://discordapp.com/api/webhooks/**" }
+        { "url": "https://discordapp.com/api/webhooks/**" },
+        { "url": "https://api.github.com/repos/Exafyll/Loldle_Infinite_Tauri/releases/latest"}
       ]
     },
 

@@ -6,6 +6,7 @@ import ChampionRow from "./components/ChampionRow";
 import VictoryModal from "./components/VictoryModal";
 import InfoPanel from "./components/InfoPanel";
 import Footer from "./components/Footer";
+import { checkForUpdates } from "./utils/updateChecker";
 
 import { getCurrentWindow } from "@tauri-apps/api/window";
 
@@ -57,6 +58,13 @@ export default function App() {
     .getElementById("btn-close")
     ?.addEventListener("click", () => appWindow.close());
 
+  // -----------------------
+  // Update Check
+  // -----------------------
+
+  useEffect(() => {
+    checkForUpdates();
+  }, []);
   // -----------------------
   // Load Secret Champion on Mount
   // -----------------------

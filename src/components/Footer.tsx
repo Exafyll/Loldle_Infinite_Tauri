@@ -11,6 +11,7 @@ export default function Footer({ guessedCount }: { guessedCount?: number }) {
   return (
     <footer className="footer" style={{ WebkitAppRegion: "no-drag" } as any}>
       <button onClick={() => setShowBug(true)}>Report a bug</button>
+
       <p>Made by Exafyll</p>
 
       {showBug && <BugReportModal onClose={() => setShowBug(false)} />}

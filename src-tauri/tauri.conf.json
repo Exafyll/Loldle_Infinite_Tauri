@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "loldle-tauri",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "identifier": "com.exafyll.loldle",
   "build": {
     "frontendDist": "../build",
@@ -32,5 +32,15 @@
     "icon": [
       "icons/appicon.ico"
     ]
+  },
+    "plugins": {
+  "updater": {
+    "active": true,
+    "endpoints": [
+      "https://github.com/Exafyll/Loldle_Infinite_Tauri/releases/latest/download/latest.json"
+    ],
+    "pubkey": "PdW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMzRDY4NDlFRkFEREQ3NjgKUldSbzE5MzZub1RXdzROeTlOaGNzWXVhSXV5bGxpQlJnK251ZVlXeXRXYmM0R3NZTkZTaEpZa3cK",
+    "dialog": true
   }
+}
 }
