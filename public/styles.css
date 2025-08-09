@@ -1,0 +1,556 @@
+/* =====================================
+   Fonts
+===================================== */
+@font-face {
+  font-family: 'Marcellus SC';
+  src: url('/fonts/MarcellusSC-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =====================================
+   Root Variables
+===================================== */
+:root {
+  --background: #0e0e0e;
+  --correct: #55b03d;
+  --partial: #f7ab08;
+  --incorrect: #ee3a3a;
+  --blueOutline: #079c90;
+}
+.colorblind-mode {
+  --correct: #0053B1;
+  --partial: #008FAC;
+  --incorrect: #FF6F00;
+}
+/* =====================================
+   Base Layout
+===================================== */
+* {
+  box-sizing: border-box;
+  font-family: 'Marcellus SC', serif;
+}
+body {
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+    box-shadow: inset 0 0 0 2000px rgba(0, 3, 26, 0.562);
+  height: 100vh;
+  width: 100vw;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.returnBody {
+  overflow: auto;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
+}
+.returnBody::-webkit-scrollbar {
+  display: none;                
+}
+.correctBackground{
+background-color: var(--correct);
+}
+.partialBackground{
+background-color: var(--partial);
+}
+.incorrectBackground{
+background-color: var(--incorrect);
+}
+
+/* =====================================
+   Champion Display Grid
+===================================== */
+.champContainer {
+  animation: guessEnter 0.3s ease forwards;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 20px;
+}
+
+.champWrapper {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  row-gap: 20px;
+  max-width: 900px;
+}
+
+.champBox {
+  animation: flipIn 0.3s ease;
+  transform-origin: top;
+  display: flex;
+  width: 100px;
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 10px #000000;
+
+  border-width: 2px;
+  border-style: solid;
+  border-image: linear-gradient(to bottom, #c8aa6d, #7a5c29);
+  border-image-slice: 1;
+}
+
+.champBox p {
+  text-align: center;
+  text-shadow: 1px 0 10px black;
+  user-select: none;
+  font-weight: 600;
+}
+.colorBox{
+  width: 25px;
+  aspect-ratio: 1;
+  border-width: 2px;
+  border-style: solid;
+  border-image: linear-gradient(to bottom, #c8aa6d, #7a5c29);
+  border-image-slice: 1;
+}
+
+/* Match Feedback Colors */
+.match {
+  background-color: var(--correct);
+}
+.partial-match {
+  background-color: var(--partial);
+}
+.mismatch {
+  background-color: var(--incorrect);
+}
+.higher {
+  background-color: var(--incorrect);
+  background-image: url(Images/down.png);
+  background-size: contain;
+}
+.lower {
+  background-color: var(--incorrect);
+  background-image: url(Images/up.png);
+  background-size: contain;
+}
+
+/* =====================================
+   Header Styling
+===================================== */
+.champHeader {
+  display: flex;
+  width: 100px;
+  height: 20px;
+  margin-top: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.champHeader h6 {
+  font-size: 16px;
+  font-weight: 600;
+  text-shadow: 1px 0 10px black;
+  user-select: none;
+}
+
+/* =====================================
+   Typography
+===================================== */
+p, h1, h2, h3, h4, h5, h6 {
+  color: white;
+  font-family: 'Marcellus SC', serif;
+}
+
+/* =====================================
+   Input Styling
+===================================== */
+input[type="text"] {
+  -webkit-app-region: no-drag;
+  background: linear-gradient(to bottom, #1E2328, #1E2328);
+  border: 2px solid var(--blueOutline);
+  color: #078d82;
+  padding: 10px 15px;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: 'Marcellus SC', serif;
+}
+
+input[type="text"]:hover {
+  background: linear-gradient(to bottom, #1E2328, #11384C);
+  color: white;
+  border: 2px solid #09c2b4;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: none;
+  background: linear-gradient(to bottom, #1E2328, #11384C);
+  color: white;
+  border: 2px solid var(--blueOutline);
+}
+
+input[type="text"]::placeholder {
+  color: #078d82bd;
+  font-weight: 800;
+  font-family: 'Marcellus SC', serif;
+}
+
+input[type="text"]:hover::placeholder,
+input[type="text"]:focus::placeholder {
+  color: #1ee4d3bd;
+}
+
+select {
+  -webkit-app-region: no-drag;
+  background: linear-gradient(to bottom, #1E2328, #1E2328);
+  color: #cdbe91;
+  font-family: 'Marcellus SC', serif;
+  font-weight: bold;
+  font-size: 16px;
+  border: 2px solid var(--blueOutline);
+  padding: 8px 12px;
+  border-radius: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-shadow: inset 0 0 4px #000;
+  transition: 0.2s ease-in-out;
+}
+
+select:hover,
+select:focus {
+  outline: none;
+  background: linear-gradient(to bottom, #1E2328, #11384C);
+  border-color: #09c2b4;
+  color: white;
+}
+select option {
+  background-color: #1E2328;
+  color: #cdbe91;
+  font-family: 'Marcellus SC', serif;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* =====================================
+   Button Styling
+===================================== */
+button {
+  -webkit-app-region: no-drag;
+  font-family: 'Marcellus SC', serif;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 5px 15px;
+  background: #1e2328;
+  color: #cdbe91;
+  border-width: 2px;
+  border-image: linear-gradient(to bottom, #c8aa6d, #7a5c29);
+  border-image-slice: 1;
+  box-shadow: inset 0 0 2px #000000;
+}
+
+button:hover {
+  text-shadow: 0 0 5px #ffffff80;
+  box-shadow: 0 0 8px 0 #ffffff50;
+  background: linear-gradient(to bottom, #1e2328, #433d2b);
+  transition: 0.1s;
+}
+
+button:active {
+  text-shadow: none;
+  box-shadow: none;
+  color: #cdbe9130;
+}
+
+.settingsButton{
+  -webkit-app-region: no-drag;
+width: 50px;
+height: 50px;
+transition: 200ms;
+}
+.settingsButton:hover{
+  scale: 1.15;
+}
+
+.windowButton{
+  -webkit-app-region: no-drag;
+width: 30px;
+height: 30px;
+transition: 200ms;
+}
+.windowButton:hover{
+  scale: 1.15;
+}
+
+
+/* =====================================
+   Top Bar
+===================================== */
+.topBar{
+    -webkit-app-region: drag;
+  position: absolute;
+  top: 0;
+  min-height: 40px;
+  width: 100%;
+  display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+      align-items: center;
+    
+}
+
+
+/* =====================================
+    Info Panel
+===================================== */
+.info-panel {
+  min-width: 300px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--blueOutline);
+  padding: 15px;
+  margin: 20px auto;
+  max-width: 600px;
+  border-radius: 6px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+
+/* =====================================
+   Suggestions Dropdown
+===================================== */
+.suggestions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: clip;
+  width: 200px;
+  position: absolute;
+  z-index: 10;
+  background: var(--background);
+  border: 1px solid var(--blueOutline);
+  scrollbar-color: var(--blueOutline) var(--background);
+  scrollbar-width: thin;
+}
+
+.suggestions li {
+  padding: 5px 10px;
+  color: white;
+}
+
+.suggestions li:hover {
+  background-color: var(--partial);
+}
+
+/* Suggestion List Item with Icon */
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.suggestion-item:hover {
+  background-color: #1e2328;
+}
+
+.suggestion-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+/* =====================================
+   Logo
+===================================== */
+.logo {
+  max-width: 500px;
+}
+
+
+/* =====================================
+   Modal
+===================================== */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  
+}
+
+.modal-content {
+    border-width: 2px;
+  border-style: solid;
+  border-image: linear-gradient(to bottom, #c8aa6d, #7a5c29);
+  border-image-slice: 1;
+  background-color: var(--background);
+  padding: 30px;
+  text-align: center;
+  color: white;
+  border-radius: 3px;
+  animation: modalEnter 0.2s ease-out forwards;
+}
+
+
+/* Modal inputs */
+.modal-content input[type="text"],
+.modal-content textarea {
+  -webkit-app-region: no-drag;
+  width: 100%;
+  background: linear-gradient(to bottom, #1E2328, #1E2328);
+  border: 2px solid var(--blueOutline);
+  color: #cdbe91;
+  padding: 10px 12px;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: inset 0 0 4px #000;
+  transition: 0.2s ease-in-out;
+}
+
+.modal-content input[type="text"]:hover,
+.modal-content textarea:hover,
+.modal-content input[type="text"]:focus,
+.modal-content textarea:focus {
+  outline: none;
+  background: linear-gradient(to bottom, #1E2328, #11384C);
+  border-color: #09c2b4;
+  color: #fff;
+}
+
+.modal-content textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+
+
+/* =====================================
+   Championbox special flair
+===================================== */
+.position-Top{background-image: url("Images/Top_icon.webp");}
+.position-Jungle{background-image: url("Images/Jungle_icon.webp");}
+.position-Middle{background-image: url("Images/Middle_icon.webp");}
+.position-Bottom{background-image: url("Images/Bottom_icon.webp");}
+.position-Support{background-image: url("Images/Support_icon.webp");}
+.position-Top, .position-Jungle, .position-Middle, .position-Bottom, .position-Support{
+  background-size: contain;
+  background-position: center;
+  background-blend-mode:luminosity;
+}
+
+.rangeType-Ranged{background-image: url("Images/Ranged_icon.webp");}
+.rangeType-Melee{background-image: url("Images/Melee_icon.webp");}
+.rangeType-Melee, .rangeType-Ranged{
+    background-size: contain;
+  background-position: center;
+  background-blend-mode:luminosity;
+}
+
+/* =====================================
+   Settings
+===================================== */
+
+.settingsRow{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+      margin-bottom: 20px;
+}
+.settingsRow select{
+  margin-left: 20px;
+
+}
+.subSettingsRow{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.subSettingsRow p{opacity: 0.8;}
+
+
+/* =====================================
+   Animations
+===================================== */
+@keyframes guessEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes flipIn {
+  from {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+@keyframes modalEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* =====================================
+   Backgrounds
+===================================== */
+.bg-default {
+  background-image: url("Images/backgrounds/Background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bg-kian {
+  background-image: url("Images/backgrounds/kian.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* =====================================
+  Footer
+===================================== */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-app-region: no-drag; 
+}

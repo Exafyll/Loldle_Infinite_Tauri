@@ -1,0 +1,75 @@
+{
+  "Gender": [
+    "Male",
+    "Female",
+    "Other"
+  ],
+  "Position": [
+    "Top",
+    "Jungle",
+    "Middle",
+    "Bottom",
+    "Support"
+  ],
+  "Species": [
+    "Human",
+    "Plant",
+    "MagicallyAltered",
+    "Darkin",
+    "Magicborn",
+    "Vastayan",
+    "Minotaur",
+    "Undead",
+    "Yordle",
+    "God",
+    "Spirit",
+    "Spiritualist",
+    "Iceborn",
+    "Dragon",
+    "GodWarrior",
+    "Celestial",
+    "Golem",
+    "Cyborg",
+    "VoidBeing",
+    "Aspect",
+    "ChemicallyAltered",
+    "Demon",
+    "Revenant",
+    "Unknown",
+    "Dog",
+    "Yeti"
+  ],
+  "Resource": [
+    "Mana",
+    "Manaless",
+    "Energy",
+    "Health",
+    "Rage",
+    "Shield",
+    "Fury",
+    "Ferocity",
+    "Heat"
+  ],
+  "RangeType": [
+    "Ranged",
+    "Melee"
+  ],
+  "Region": [
+    "Noxus",
+    "Ixtal",
+    "Runeterra",
+    "Shurima",
+    "Piltover",
+    "Ionia",
+    "Freljord",
+    "Targon",
+    "Zuan",
+    "Void",
+    "BandleCity",
+    "ShadowIsles",
+    "Bilgewater",
+    "Demacia",
+    "Camavor",
+    "Icathia"
+  ]
+}

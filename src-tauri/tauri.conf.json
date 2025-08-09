@@ -1,0 +1,36 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "loldle-tauri",
+  "version": "0.1.0",
+  "identifier": "com.exafyll.loldle",
+  "build": {
+    "frontendDist": "../build",
+    "devUrl": "http://localhost:3000",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+  {
+    "label": "main",
+    "title": "Exafylls Loldle Infinite",
+    "width": 1400,
+    "height": 900,
+    "resizable": true,
+    "fullscreen": false,
+    "decorations": false
+  }
+],
+    "security": {
+      "csp": null,
+      "capabilities": ["default"]
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["msi"],
+    "icon": [
+      "icons/appicon.ico"
+    ]
+  }
+}

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Champion Data Entry Tool</title>
+  <style>
+    body { font-family: sans-serif; background: #151515; color: #eee; padding: 2em; }
+    label { display: block; margin: 1em 0 0.2em; }
+    .fieldbox { margin-bottom: 1em; }
+    .checkbox-group label { display: inline-block; margin-right: 1em; }
+    #output { background: #222; padding: 1em; margin-top: 2em; white-space: pre; border-radius: 6px; border: 1px solid #444; }
+    button { margin-top: 1.5em; padding: 0.6em 1.2em; font-weight: bold; font-size: 1em; border-radius: 4px; }
+    .tag { background:#232; border-radius:5px; margin:2px 4px 2px 0; display:inline-block; padding:2px 8px; cursor:pointer; }
+    .suggestion { padding:2px 10px; cursor:pointer; }
+    .suggestion:hover { background:#005176; }
+  </style>
+</head>
+<body>
+  <h2>Champion Data Entry</h2>
+
+  <div class="fieldbox">
+    <label>Champion Name <input id="name" type="text" /></label>
+  </div>
+  <div class="fieldbox">
+    <label>Gender</label>
+    <span id="gender-box"></span>
+  </div>
+  <div class="fieldbox">
+    <label>Positions</label>
+    <div class="checkbox-group" id="positions-box"></div>
+  </div>
+
+  <!-- Tag-style Species -->
+  <div class="fieldbox">
+    <label>Species</label>
+    <input id="species-input" type="text" autocomplete="off" placeholder="Type species...">
+    <div id="species-suggestions" style="background:#333; position:relative; z-index:2;"></div>
+    <div id="species-tags"></div>
+  </div>
+
+  <div class="fieldbox">
+    <label>Resource</label>
+    <span id="resource-box"></span>
+  </div>
+  <div class="fieldbox">
+    <label>Range Type</label>
+    <div class="checkbox-group" id="range_type-box"></div>
+  </div>
+
+  <!-- Tag-style Regions -->
+  <div class="fieldbox">
+    <label>Regions</label>
+    <input id="regions-input" type="text" autocomplete="off" placeholder="Type region...">
+    <div id="regions-suggestions" style="background:#333; position:relative; z-index:2;"></div>
+    <div id="regions-tags"></div>
+  </div>
+
+  <div class="fieldbox">
+    <label>Release Year <input id="release_year" type="number" min="2009" max="2030" /></label>
+  </div>
+  <div class="fieldbox">
+    <label>Icon Path <input id="icon_path" type="text" value="/icons/NULL.png" /></label>
+  </div>
+  <button onclick="generateRust()">Generate Rust Struct</button>
+  <div id="output"></div>
+
+  <script>
+    // These will be loaded from enum_options.json:
+    let regionOptions = [];
+    let speciesOptions = [];
+    let selectedRegions = [];
+    let selectedSpecies = [];
+
+    fetch('enum_options.json').then(res => res.json()).then(options => {
+      function radioBox(field, id) {
+        return options[field].map(val =>
+          `<label><input type="radio" name="${id}" value="${val}"${val === options[field][0] ? ' checked' : ''}> ${val}</label>`
+        ).join(' ');
+      }
+      function checkBox(field, id) {
+        return options[field].map(val =>
+          `<label><input type="checkbox" name="${id}" value="${val}"> ${val}</label>`
+        ).join(' ');
+      }
+      document.getElementById('gender-box').innerHTML = radioBox('Gender', 'gender');
+      document.getElementById('positions-box').innerHTML = checkBox('Position', 'positions');
+      document.getElementById('resource-box').innerHTML = radioBox('Resource', 'resource');
+      document.getElementById('range_type-box').innerHTML = checkBox('RangeType', 'range_type');
+
+      // For autocompletes:
+      regionOptions = options.Region;
+      speciesOptions = options.Species;
+    });
+
+    // --- Regions Autocomplete & Tag Logic ---
+    const regInput = document.getElementById('regions-input');
+    const regSuggestions = document.getElementById('regions-suggestions');
+    const regTags = document.getElementById('regions-tags');
+
+    regInput.addEventListener('input', () => {
+      const val = regInput.value.toLowerCase();
+      regSuggestions.innerHTML = '';
+      if (!val) return;
+      regionOptions.filter(opt =>
+        opt.toLowerCase().includes(val) && !selectedRegions.includes(opt)
+      ).forEach(opt => {
+        const div = document.createElement('div');
+        div.className = 'suggestion';
+        div.textContent = opt;
+        div.onclick = () => {
+          selectedRegions.push(opt);
+          renderRegTags();
+          regInput.value = '';
+          regSuggestions.innerHTML = '';
+        };
+        regSuggestions.appendChild(div);
+      });
+    });
+    regInput.addEventListener('blur', () => setTimeout(()=>regSuggestions.innerHTML='',150));
+    function renderRegTags() {
+      regTags.innerHTML = '';
+      selectedRegions.forEach(region => {
+        const span = document.createElement('span');
+        span.className = 'tag';
+        span.textContent = region + ' ×';
+        span.onclick = () => {
+          selectedRegions = selectedRegions.filter(x => x !== region);
+          renderRegTags();
+        };
+        regTags.appendChild(span);
+      });
+    }
+
+    // --- Species Autocomplete & Tag Logic ---
+    const spInput = document.getElementById('species-input');
+    const spSuggestions = document.getElementById('species-suggestions');
+    const spTags = document.getElementById('species-tags');
+
+    spInput.addEventListener('input', () => {
+      const val = spInput.value.toLowerCase();
+      spSuggestions.innerHTML = '';
+      if (!val) return;
+      speciesOptions.filter(opt =>
+        opt.toLowerCase().includes(val) && !selectedSpecies.includes(opt)
+      ).forEach(opt => {
+        const div = document.createElement('div');
+        div.className = 'suggestion';
+        div.textContent = opt;
+        div.onclick = () => {
+          selectedSpecies.push(opt);
+          renderSpTags();
+          spInput.value = '';
+          spSuggestions.innerHTML = '';
+        };
+        spSuggestions.appendChild(div);
+      });
+    });
+    spInput.addEventListener('blur', () => setTimeout(()=>spSuggestions.innerHTML='',150));
+    function renderSpTags() {
+      spTags.innerHTML = '';
+      selectedSpecies.forEach(species => {
+        const span = document.createElement('span');
+        span.className = 'tag';
+        span.textContent = species + ' ×';
+        span.onclick = () => {
+          selectedSpecies = selectedSpecies.filter(x => x !== species);
+          renderSpTags();
+        };
+        spTags.appendChild(span);
+      });
+    }
+
+    // --- Get Selected Functions ---
+    function getSelectedRadios(name) {
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? el.value : '';
+    }
+    function getSelectedChecks(name) {
+      return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(x => x.value);
+    }
+
+    // --- Generate Rust Struct ---
+    function generateRust() {
+      const name = document.getElementById('name').value.trim();
+      const gender = getSelectedRadios('gender');
+      const positions = getSelectedChecks('positions');
+      const resource = getSelectedRadios('resource');
+      const range_type = getSelectedChecks('range_type');
+      const release_year = document.getElementById('release_year').value.trim();
+      const icon_path = document.getElementById('icon_path').value.trim();
+
+      if (!name || !release_year) {
+        alert('Name and release year required');
+        return;
+      }
+      // Use tag selections for species and regions:
+      const species = selectedSpecies;
+      const regions = selectedRegions;
+
+      let out = `Champion {
+    name: "${name}".to_string(),
+    gender: Gender::${gender},
+    positions: vec![${positions.map(x => `Position::${x}`).join(', ')}],
+    species: vec![${species.map(x => `Species::${x}`).join(', ')}],
+    resource: Resource::${resource},
+    range_type: vec![${range_type.map(x => `RangeType::${x}`).join(', ')}],
+    regions: vec![${regions.map(x => `Region::${x}`).join(', ')}],
+    release_year: ${release_year},
+    icon_path: "${icon_path}".to_string(),
+},`;
+      document.getElementById('output').textContent = out;
+    }
+  </script>
+</body>
+</html>

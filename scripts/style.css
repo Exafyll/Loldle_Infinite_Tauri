@@ -1,0 +1,20 @@
+#species-tags span {
+  display: inline-block;
+  background: #075e54;
+  color: #fff;
+  padding: 0.2em 0.7em;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 1em;
+  font-size: 0.95em;
+  cursor: pointer;
+}
+#species-tags span:hover {
+  background: #b12c2c;
+}
+#species-suggestions div {
+  padding: 0.2em 0.7em;
+  cursor: pointer;
+}
+#species-suggestions div:hover {
+  background: #444;
+}

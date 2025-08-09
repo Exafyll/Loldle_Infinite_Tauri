@@ -1,0 +1,15 @@
+{
+  "identifier": "network",
+  "description": "Allow outbound requests to Discord webhooks",
+  "windows": ["main"],
+  "permissions": ["http:default"],
+  "platforms": ["windows", "macOS", "linux"],
+  "config": {
+    "http": {
+      "scope": [
+        "https://discord.com/api/webhooks/**",
+        "https://discordapp.com/api/webhooks/**"
+      ]
+    }
+  }
+}
