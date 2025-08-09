@@ -7,6 +7,7 @@ import VictoryModal from "./components/VictoryModal";
 import InfoPanel from "./components/InfoPanel";
 import Footer from "./components/Footer";
 import { checkForUpdates } from "./utils/updateChecker";
+import logoUrl from "./Logo.png";
 
 import { getCurrentWindow } from "@tauri-apps/api/window";
 
@@ -303,7 +304,7 @@ export default function App() {
 
       {/* Logo */}
       <div>
-        <img src="/Images/logo.png" alt="logo" className="logo" />
+        <img src={logoUrl} alt="logo" className="logo" />
       </div>
 
       {/* Search Input */}
